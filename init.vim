@@ -1,3 +1,10 @@
+""" COLOR SCHEME
+set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+colorscheme yin
+
 set termguicolors
 syntax enable
 
@@ -41,6 +48,7 @@ tnoremap jk  <C-\><C-n>
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'ayu-theme/ayu-vim' " a beautiful theme
+
 Plug 'scrooloose/nerdcommenter' " for better commenting
 Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
 Plug 'junegunn/fzf.vim' " fzf - fuzzy finder
@@ -50,17 +58,14 @@ Plug 'scrooloose/nerdtree' " NERDTree
 Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
 Plug 'easymotion/vim-easymotion' " easy navigation through file
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'yuttie/comfortable-motion.vim' " smooth scrolling
+Plug 'pangloss/vim-javascript' " Javascript highlighting
+Plug 'ngmy/vim-rubocop' " Rubocop check
+Plug 'mxw/vim-jsx' " JSX highlighting
+Plug 'tpope/vim-surround' " Surround
 
 call plug#end()
 """ Plugins end
 
-""" COLOR SCHEME
-set termguicolors     " enable true colors support
-" let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
 
 """ STATUS LINE
 set laststatus=2
@@ -90,3 +95,9 @@ nmap <leader>ne :NERDTree<cr>
 
 """ Deoplete
 let g:deoplete#enable_at_startup = 1
+
+
+""" Aliases
+cabbrev ag Ag
+
+autocmd BufWritePre * :%s/\s\+$//e " Remove trailing whitespace on save
