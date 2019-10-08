@@ -1,9 +1,35 @@
+""" Plugins
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'ayu-theme/ayu-vim' " a beautiful theme
+Plug 'arcticicestudio/nord-vim'
+Plug 'levelone/tequila-sunrise.vim'
+
+Plug 'sheerun/vim-polyglot'
+Plug 'scrooloose/nerdcommenter' " for better commenting
+Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
+Plug 'junegunn/fzf.vim' " fzf - fuzzy finder
+Plug 'tpope/vim-rails' " rails helpers for vim
+Plug 'tpope/vim-fugitive' " git commands for vim
+Plug 'scrooloose/nerdtree' " NERDTree
+Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
+Plug 'easymotion/vim-easymotion' " easy navigation through file
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'pangloss/vim-javascript' " Javascript highlighting
+Plug 'ngmy/vim-rubocop' " Rubocop check
+Plug 'mxw/vim-jsx' " JSX highlighting
+Plug 'tpope/vim-surround' " Surround
+Plug 'liuchengxu/vim-clap' " Interactive finder and dispatcher
+
+call plug#end()
+""" Plugins end
+
 """ COLOR SCHEME
 set termguicolors     " enable true colors support
 " let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-"let ayucolor="dark"   " for dark version of theme
-colorscheme yin
+let ayucolor="dark"   " for dark version of theme
+colorscheme tequila-sunrise
 
 set termguicolors
 syntax enable
@@ -44,27 +70,6 @@ nnoremap <C-H> <C-W><C-H>
 """ Exit from terminal mode
 tnoremap jk  <C-\><C-n>
 
-""" Plugins
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'ayu-theme/ayu-vim' " a beautiful theme
-
-Plug 'scrooloose/nerdcommenter' " for better commenting
-Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
-Plug 'junegunn/fzf.vim' " fzf - fuzzy finder
-Plug 'tpope/vim-rails' " rails helpers for vim
-Plug 'tpope/vim-fugitive' " git commands for vim
-Plug 'scrooloose/nerdtree' " NERDTree
-Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
-Plug 'easymotion/vim-easymotion' " easy navigation through file
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'pangloss/vim-javascript' " Javascript highlighting
-Plug 'ngmy/vim-rubocop' " Rubocop check
-Plug 'mxw/vim-jsx' " JSX highlighting
-Plug 'tpope/vim-surround' " Surround
-
-call plug#end()
-""" Plugins end
 
 
 """ STATUS LINE
