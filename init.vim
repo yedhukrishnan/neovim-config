@@ -5,7 +5,6 @@ Plug 'ayu-theme/ayu-vim' " a beautiful theme
 Plug 'arcticicestudio/nord-vim'
 Plug 'levelone/tequila-sunrise.vim'
 
-Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdcommenter' " for better commenting
 Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
 Plug 'junegunn/fzf.vim' " fzf - fuzzy finder
@@ -16,10 +15,13 @@ Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
 Plug 'easymotion/vim-easymotion' " easy navigation through file
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'pangloss/vim-javascript' " Javascript highlighting
-Plug 'ngmy/vim-rubocop' " Rubocop check
 Plug 'mxw/vim-jsx' " JSX highlighting
 Plug 'tpope/vim-surround' " Surround
 Plug 'liuchengxu/vim-clap' " Interactive finder and dispatcher
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'slim-template/vim-slim'
+Plug 'vim-python/python-syntax'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 """ Plugins end
