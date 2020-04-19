@@ -1,6 +1,6 @@
 # neovim-config
 
-My neovim configuration. Work in progress!
+My neovim configuration.
 
 ## Screenshot
 
