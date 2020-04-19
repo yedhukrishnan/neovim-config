@@ -53,6 +53,7 @@ set backspace=indent,eol,start
 " set jk as escape
 inoremap jk <esc>
 
+" set leader to space
 :let mapleader=" "
 
 noremap <Up> <NOP>
@@ -79,10 +80,11 @@ nmap <leader>nf :NERDTreeFind<cr>
 
 """ Aliases
 cabbrev ag Ag
-
 autocmd BufWritePre * :%s/\s\+$//e " Remove trailing whitespace on save
 
+""" Airline
 let g:airline_powerline_fonts = 1
+let g:airline_solarized_bg='deus'
 
 """ Line numbering
 :set number relativenumber
@@ -102,7 +104,6 @@ set foldlevelstart=20
 """
 
 set encoding=utf8
-let g:airline_powerline_fonts=1
 
 """ COC
 inoremap <silent><expr> <TAB>
