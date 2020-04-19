@@ -1,0 +1,6 @@
+{
+  "solargraph.diagnostics": true,
+  "solargraph.promptDownload": true,
+  "solargraph.hover": true,
+  "solargraph.definitions": true
+}

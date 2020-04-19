@@ -29,7 +29,7 @@ call plug#end()
 let ayucolor="dark"   " for dark version of theme
 colorscheme ayu
 
-
+set hidden
 set termguicolors
 syntax enable
 
@@ -74,6 +74,7 @@ nmap <leader>p :Files<cr>
 
 """ NerdTree
 nmap <leader>ne :NERDTree<cr>
+nmap <leader>nf :NERDTreeFind<cr>
 
 
 """ Aliases
@@ -102,5 +103,21 @@ set foldlevelstart=20
 
 set encoding=utf8
 let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+
+""" COC
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_global_extensions = ['coc-solargraph']
+
+" Use <C-l> for trigger snippet expand.
+imap <C-a> <Plug>(coc-snippets-expand)
+""" End COC
