@@ -2,8 +2,6 @@
 
 My neovim configuration.
 
-## Screenshot
-
 ![Sample Screenshot](https://raw.githubusercontent.com/yedhukrishnan/neovim-config/master/screenshots/sample.png)
 
 - Color Scheme: [ayu.vim](https://github.com/ayu-theme/ayu-vim) (dark)
@@ -25,3 +23,7 @@ Open `nvim` and run:
 ```
 
 Install [solargraph](https://github.com/castwide/solargraph) for Ruby autocompletion and other features.
+
+## Sreenshots
+
+- [Ruby autocompletion](https://raw.githubusercontent.com/yedhukrishnan/neovim-config/master/screenshots/ruby-autocompletion.png)
