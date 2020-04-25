@@ -16,9 +16,11 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'bling/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tpope/vim-abolish'
 
 "Themes
 Plug 'ayu-theme/ayu-vim'
+Plug 'chuling/vim-equinusocio-material'
 call plug#end()
 """ Plugins end
 
@@ -28,6 +30,13 @@ call plug#end()
 " let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
 colorscheme ayu
+
+" true colors are required for vim in terminal
+"set termguicolors
+"let g:equinusocio_material_darker = 1
+"let g:equinusocio_material_hide_vertsplit = 1
+"colorscheme equinusocio_material
+
 
 set hidden
 set termguicolors
@@ -82,6 +91,18 @@ nmap <leader>nf :NERDTreeFind<cr>
 cabbrev ag Ag
 autocmd BufWritePre * :%s/\s\+$//e " Remove trailing whitespace on save
 
+" Mapping buffer cycle keys
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+" Mapping cnext and cprev
+nnoremap <silent> [c :cprev<CR>
+nnoremap <silent> ]c :cnext<CR>
+
+nnoremap <silent> <C-a> :<C-u>nohlsearch<CR>
+
 """ Airline
 let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg='deus'
@@ -122,3 +143,20 @@ let g:coc_global_extensions = ['coc-solargraph']
 " Use <C-l> for trigger snippet expand.
 imap <C-a> <Plug>(coc-snippets-expand)
 """ End COC
+
+" Use * and # to also search for selected pattern in visual mode
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+function! s:VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+
+" Make & trigger :&& command
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
+" set spell check
+set spell
