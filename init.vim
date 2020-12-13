@@ -17,9 +17,15 @@ Plug 'bling/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
+Plug 'vim-test/vim-test'
+Plug 'ngmy/vim-rubocop'
 
 "Themes
 Plug 'ayu-theme/ayu-vim'
+Plug 'kyoz/purify', { 'rtp': 'vim' }
 Plug 'chuling/vim-equinusocio-material'
 call plug#end()
 """ Plugins end
@@ -28,8 +34,12 @@ call plug#end()
 "set termguicolors     " enable true colors support
 " let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
+"let ayucolor="dark"   " for dark version of theme
+"colorscheme ayu
+
+"colorscheme gruvbox
+"colorscheme inkpot
+colorscheme purify
 
 " true colors are required for vim in terminal
 "set termguicolors
@@ -81,6 +91,10 @@ tnoremap jk  <C-\><C-n>
 
 """ FZF
 nmap <leader>p :Files<cr>
+nmap <leader>b :Buffers<cr>
+nmap <leader>l :Lines<cr>
+nmap <leader>c :History:<cr>
+nmap <leader>s :History\<cr>
 
 """ NerdTree
 nmap <leader>ne :NERDTree<cr>
@@ -101,7 +115,7 @@ nnoremap <silent> ]B :blast<CR>
 nnoremap <silent> [c :cprev<CR>
 nnoremap <silent> ]c :cnext<CR>
 
-nnoremap <silent> <C-a> :<C-u>nohlsearch<CR>
+nnoremap <silent> <C-s> :<C-u>nohlsearch<CR>
 
 """ Airline
 let g:airline_powerline_fonts = 1
@@ -141,7 +155,7 @@ endfunction
 let g:coc_global_extensions = ['coc-solargraph']
 
 " Use <C-l> for trigger snippet expand.
-imap <C-a> <Plug>(coc-snippets-expand)
+"imap <C-a> <Plug>(coc-snippets-expand)
 """ End COC
 
 " Use * and # to also search for selected pattern in visual mode
@@ -159,4 +173,20 @@ nnoremap & :&&<CR>
 xnoremap & :&&<CR>
 
 " set spell check
-set spell
+"set spell
+
+" Vim test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+
+command! -register CopyMatches call CopyMatches(<q-reg>)
