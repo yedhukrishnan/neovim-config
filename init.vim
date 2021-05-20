@@ -2,7 +2,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'scrooloose/nerdcommenter' " for better commenting
 Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
-Plug 'junegunn/fzf.vim' " fzf - fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-rails' " rails helpers for vim
 Plug 'scrooloose/nerdtree' " NERDTree
 Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
@@ -27,7 +28,7 @@ Plug 'dense-analysis/ale'
 "Themes
 Plug 'ayu-theme/ayu-vim'
 Plug 'kyoz/purify', { 'rtp': 'vim' }
-Plug 'chuling/vim-equinusocio-material'
+Plug 'wojciechkepka/vim-github-dark'
 call plug#end()
 """ Plugins end
 
@@ -35,12 +36,15 @@ call plug#end()
 "set termguicolors     " enable true colors support
 " let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-"let ayucolor="dark"   " for dark version of theme
-"colorscheme ayu
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 
-colorscheme gruvbox
+"colorscheme gruvbox
+"colorscheme molokai
+"colorscheme atom-dark
 "colorscheme inkpot
 "colorscheme purify
+"colorscheme ghdark
 
 " true colors are required for vim in terminal
 "set termguicolors
@@ -184,3 +188,5 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
 let b:ale_linters = {'javascript': ['eslint']}
+
+set rtp+=~/.fzf
