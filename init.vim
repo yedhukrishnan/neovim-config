@@ -24,6 +24,8 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'vim-test/vim-test'
 Plug 'ngmy/vim-rubocop'
 Plug 'dense-analysis/ale'
+Plug 'mileszs/ack.vim'
+Plug 'github/copilot.vim'
 
 "Themes
 Plug 'ayu-theme/ayu-vim'
