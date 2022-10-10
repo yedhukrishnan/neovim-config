@@ -16,7 +16,6 @@ Plug 'vim-python/python-syntax'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'bling/vim-airline'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
