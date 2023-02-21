@@ -1,49 +1,58 @@
 """ Plugins
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'scrooloose/nerdcommenter' " for better commenting
-Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-rails' " rails helpers for vim
-Plug 'scrooloose/nerdtree' " NERDTree
-Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
-Plug 'pangloss/vim-javascript' " Javascript highlighting
-Plug 'mxw/vim-jsx' " JSX highlighting
-Plug 'tpope/vim-surround' " Surround
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'slim-template/vim-slim'
-Plug 'vim-python/python-syntax'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'bling/vim-airline'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'vim-test/vim-test'
-Plug 'ngmy/vim-rubocop'
-Plug 'dense-analysis/ale'
-Plug 'mileszs/ack.vim'
-Plug 'github/copilot.vim'
-
-"Themes
-Plug 'ayu-theme/ayu-vim'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
-Plug 'wojciechkepka/vim-github-dark'
+" Plug 'scrooloose/nerdcommenter' " for better commenting
+" Plug '/usr/local/opt/fzf' " fzf - fuzzy finder
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+" Plug 'tpope/vim-rails' " rails helpers for vim
+" Plug 'scrooloose/nerdtree' " NERDTree
+" Plug 'vim-ruby/vim-ruby' " Ruby helpers for vim
+" Plug 'pangloss/vim-javascript' " Javascript highlighting
+" Plug 'mxw/vim-jsx' " JSX highlighting
+" Plug 'tpope/vim-surround' " Surround
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Plug 'slim-template/vim-slim'
+" Plug 'vim-python/python-syntax'
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'bling/vim-airline'
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-dispatch'
+" Plug 'radenling/vim-dispatch-neovim'
+" Plug 'vim-test/vim-test'
+" Plug 'ngmy/vim-rubocop'
+" Plug 'dense-analysis/ale'
+" Plug 'mileszs/ack.vim'
+" Plug 'github/copilot.vim'
+" Plug 'lukas-reineke/indent-blankline.nvim'
+" Plug 'simrat39/symbols-outline.nvim'
+" 
+" "Themes
+" Plug 'ayu-theme/ayu-vim'
+" Plug 'kyoz/purify', { 'rtp': 'vim' }
+" Plug 'wojciechkepka/vim-github-dark'
+" Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 call plug#end()
 """ Plugins end
 
 """ COLOR SCHEME
+"colorscheme catppuccin
+"colorscheme catppuccin-latte
+"colorscheme catppuccin-frappe
+"colorscheme catppuccin-macchiato
+colorscheme catppuccin-mocha
 "set termguicolors     " enable true colors support
 " let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
+"let ayucolor="dark"   " for dark version of theme
+"colorscheme ayu
 
 "colorscheme gruvbox
+"let g:gruvbox_contrast_dark = 'soft'
 "colorscheme molokai
 "colorscheme atom-dark
-"colorscheme inkpot
+"colorschemeinkpot
 "colorscheme purify
 "colorscheme ghdark
 
@@ -74,6 +83,7 @@ set ic
 set incsearch
 set hlsearch
 set backspace=indent,eol,start
+set cursorline
 
 " set jk as escape
 inoremap jk <esc>

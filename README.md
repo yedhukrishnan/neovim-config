@@ -27,3 +27,10 @@ Install [solargraph](https://github.com/castwide/solargraph) for Ruby autocomple
 ## Sreenshots
 
 - [Ruby autocompletion](https://raw.githubusercontent.com/yedhukrishnan/neovim-config/master/screenshots/ruby-autocompletion.png)
+
+### Lua
+
+```
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+```
