@@ -1,5 +1,7 @@
 # neovim-config
 
+***WARNING: The README is outdated.***
+
 My neovim configuration.
 
 ![Sample Screenshot](https://raw.githubusercontent.com/yedhukrishnan/neovim-config/master/screenshots/sample.png)
