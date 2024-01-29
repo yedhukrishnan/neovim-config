@@ -1,5 +1,3 @@
-require("plugins")
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
@@ -12,8 +10,12 @@ vim.opt.lazyredraw = true
 vim.opt.ic = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
-vim.opt.backspace = indent,eol,start
+vim.opt.backspace = [[indent,eol,start]]
 vim.opt.cursorline = true
+vim.opt.history = 1000
+
+
+require('plugins')
 
 vim.g.mapleader = ' '
 
@@ -36,6 +38,11 @@ vim.keymap.set('n', '<C-K>', '<C-W><C-K>', {})
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', {})
 vim.keymap.set('n', '<C-H>', '<C-W><C-H>', {})
 
+vim.keymap.set('n', '<C-S>', ':nohlsearch<CR>', { noremap = true, silent = true })
+
+vim.keymap.set('n', ']b', ':bprevious<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '[b', ':bnext<CR>', { noremap = true, silent = true })
+
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nf', [[:NvimTreeFindFile<CR>]], {})
 require('lualine').setup()
@@ -45,3 +52,11 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
   command = [[%s/\s\+$//e]],
 })
+
+local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
+
+if not packer_exists then
+    local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
+    vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_path })
+    vim.cmd([[packadd packer.nvim]])
+end
