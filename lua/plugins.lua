@@ -15,6 +15,13 @@ return require('packer').startup(function()
   use 'lukas-reineke/indent-blankline.nvim'
   use 'simrat39/symbols-outline.nvim'
   use 'rebelot/kanagawa.nvim'
+  use 'tpope/vim-rails'
+  -- Use CopilotChat
+  use {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+  }
+
   --[[ On new systems install COC packages via
   CocInstall coc-vimtex coc-texlab
   --]]
@@ -39,4 +46,5 @@ return require('packer').startup(function()
       })
     end
   }
+  use 'APZelos/blamer.nvim'
 end)

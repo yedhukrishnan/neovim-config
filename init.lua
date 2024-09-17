@@ -38,14 +38,22 @@ vim.keymap.set('n', '<C-K>', '<C-W><C-K>', {})
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', {})
 vim.keymap.set('n', '<C-H>', '<C-W><C-H>', {})
 
+-- Clear highlights with <C-S>
 vim.keymap.set('n', '<C-S>', ':nohlsearch<CR>', { noremap = true, silent = true })
 
+-- Remap buffer next/previous
 vim.keymap.set('n', ']b', ':bprevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '[b', ':bnext<CR>', { noremap = true, silent = true })
+
+-- %% expands to current file directory
+vim.cmd([[
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+]])
 
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nf', [[:NvimTreeFindFile<CR>]], {})
 require('lualine').setup()
+require("ibl").setup()
 
 -- Remove trailing whitespace
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -56,7 +64,15 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
 if not packer_exists then
-    local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
-    vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_path })
-    vim.cmd([[packadd packer.nvim]])
+  local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
+  vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_path })
+  vim.cmd([[packadd packer.nvim]])
 end
+
+-- Enable Git Blamer
+vim.g.blamer_enabled = true
+
+require("CopilotChat").setup {
+  debug = true, -- Enable debugging
+  -- See Configuration section for rest
+}
