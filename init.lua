@@ -14,10 +14,27 @@ vim.opt.backspace = [[indent,eol,start]]
 vim.opt.cursorline = true
 vim.opt.history = 1000
 
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
 
-require('plugins')
+vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = ' '
+
+require("lazy").setup("plugins")
 
 local options = { noremap = true }
 vim.keymap.set("i", "jk", "<Esc>", options)
@@ -61,14 +78,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
-local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
-
-if not packer_exists then
-  local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
-  vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_path })
-  vim.cmd([[packadd packer.nvim]])
-end
-
 -- Enable Git Blamer
 vim.g.blamer_enabled = true
 
@@ -76,3 +85,5 @@ require("CopilotChat").setup {
   debug = true, -- Enable debugging
   -- See Configuration section for rest
 }
+
+-- Setup lazy.nvim
