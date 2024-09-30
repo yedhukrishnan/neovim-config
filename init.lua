@@ -85,3 +85,11 @@ require("CopilotChat").setup {
   debug = true, -- Enable debugging
   -- See Configuration section for rest
 }
+
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = {
+      "node_modules"
+    }
+  }
+}

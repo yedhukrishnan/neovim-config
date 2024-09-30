@@ -1,4 +1,8 @@
 return {
+  spec = {
+    -- import your plugins
+    { import = "plugins" },
+  },
   'scrooloose/nerdcommenter',
   { 'neoclide/coc.nvim', branch='release' },
   'lervag/vimtex',
@@ -33,5 +37,12 @@ return {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     }
   },
-  'APZelos/blamer.nvim',
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+  },
+  'tpope/vim-fugitive'
 }
