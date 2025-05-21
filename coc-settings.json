@@ -2,5 +2,15 @@
   "solargraph.diagnostics": true,
   "solargraph.promptDownload": true,
   "solargraph.hover": true,
-  "solargraph.definitions": true
+  "solargraph.definitions": true,
+  "solargraph.commandPath": "~/.rvm/gems/ruby-3.1.6/bin/solargraph",
+  "languageserver": {
+    "rubocop": {
+      "command": "bundle",
+      "args": ["exec", "rubocop", "--lsp"],
+      "filetypes": ["ruby"],
+      "rootPatterns": [".git", "Gemfile"],
+      "requireRootPattern": true
+    }
+  }
 }
