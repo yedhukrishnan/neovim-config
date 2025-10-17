@@ -46,13 +46,14 @@ return {
     -- this is equivalent to setup({}) function
   },
   'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
   {
     "yetone/avante.nvim",
-    event = "VeryLazy",
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
       -- add any opts here
+      hints = { enabled = false }
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
@@ -106,6 +107,14 @@ return {
         require("tokyodark").setup(opts) -- calling setup is optional
         vim.cmd [[colorscheme tokyodark]]
     end,
-  }
-
+  },
+  { 'nvim-mini/mini.icons', version = '*' },
+  {
+  "xTacobaco/cursor-agent.nvim",
+  config = function()
+    vim.keymap.set("n", "<leader>ca", ":CursorAgent<CR>", { desc = "Cursor Agent: Toggle terminal" })
+    vim.keymap.set("v", "<leader>ca", ":CursorAgentSelection<CR>", { desc = "Cursor Agent: Send selection" })
+    vim.keymap.set("n", "<leader>cA", ":CursorAgentBuffer<CR>", { desc = "Cursor Agent: Send buffer" })
+  end,
+}
 }

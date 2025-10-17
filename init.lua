@@ -70,6 +70,9 @@ vim.keymap.set('n', '<C-S>', ':nohlsearch<CR>', { noremap = true, silent = true 
 vim.keymap.set('n', ']b', ':bprevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '[b', ':bnext<CR>', { noremap = true, silent = true })
 
+-- Toggle relative line numbers using <leader>r
+vim.keymap.set('n', '<leader>r', ':set rnu!<CR>', { noremap = true, silent = true })
+
 -- %% expands to current file directory
 vim.cmd([[
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -232,3 +235,6 @@ require('avante').setup ({
 
 -- Ack config
 vim.g.ackprg = "ag --vimgrep --nocolor --nogroup --hidden --ignore-dir=node_modules --ignore-dir=.next --ignore-dir=.git --ignore-dir=coverage"
+
+-- nvim.icons setup
+require("nvim-web-devicons").setup()
