@@ -11,7 +11,7 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Enable ui2 (new experimental UI in Neovim 0.12)
 -- Avoids "Press ENTER" interruptions, highlights cmdline as you type
-require('vim._core.ui2').enable()
+require('vim._core.ui2').enable({})
 
 -- =============================================================================
 -- Options
@@ -35,6 +35,14 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"  -- Use treesitter for folding (0.12 default)
 vim.opt.foldlevel = 99
 
+-- Neovim 0.12 features
+vim.opt.pumborder = 'single'                          -- Border around completion popup (single/double/rounded/shadow)
+vim.opt.autocomplete = true                           -- Built-in autocompletion
+
+-- Load built-in opt plugins (Neovim 0.12)
+vim.cmd.packadd('nvim.undotree')                      -- :Undotree - visual undo tree
+vim.cmd.packadd('nvim.difftool')                      -- :DiffTool - compare files/directories
+
 -- =============================================================================
 -- Plugin Management with vim.pack (built-in in Neovim 0.12)
 -- =============================================================================
@@ -49,6 +57,7 @@ vim.pack.add({
   { src = gh('navarasu/onedark.nvim'), name = 'onedark' },
   { src = gh('tiagovla/tokyodark.nvim'), name = 'tokyodark' },
   { src = gh('olimorris/onedarkpro.nvim'), name = 'onedarkpro' },
+  { src = gh('EdenEast/nightfox.nvim'), name = 'nightfox' },
 
   -- Telescope (fuzzy finder)
   { src = gh('nvim-telescope/telescope.nvim'), name = 'telescope' },
@@ -71,6 +80,9 @@ vim.pack.add({
   -- Note: mini.indentscope is now redundant with built-in indent-blankline improvements
   -- but keeping if you prefer its visual style
   { src = gh('echasnovski/mini.indentscope'), name = 'mini.indentscope' },
+
+  -- Treesitter (syntax highlighting, folding, text objects)
+  { src = gh('nvim-treesitter/nvim-treesitter'), name = 'nvim-treesitter' },
 
   -- Formatting
   { src = gh('stevearc/conform.nvim'), name = 'conform' },
@@ -116,7 +128,7 @@ vim.pack.add({
 -- =============================================================================
 
 -- Colorscheme
-vim.cmd.colorscheme 'gruvbox'
+vim.cmd.colorscheme 'nightfox'
 
 -- Telescope
 require('telescope').setup({
@@ -155,6 +167,20 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help tags' })
 -- nvim-tree
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { desc = 'Find file in tree' })
+
+-- nvim-treesitter
+local ok, ts_configs = pcall(require, 'nvim-treesitter.configs')
+if ok then
+  ts_configs.setup({
+    ensure_installed = {
+      'ruby', 'javascript', 'typescript', 'tsx', 'python',
+      'c', 'cpp', 'go', 'elixir', 'lua', 'vim', 'vimdoc',
+      'html', 'css', 'json', 'yaml', 'markdown', 'bash',
+    },
+    highlight = { enable = true },
+    indent = { enable = true },
+  })
+end
 
 -- lualine
 require('lualine').setup()
