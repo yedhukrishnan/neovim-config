@@ -390,6 +390,21 @@ vim.lsp.config('elixirls', {
   root_markers = { 'mix.exs', '.git' },
 })
 
+vim.lsp.config('jsonls', {
+  cmd = { 'vscode-json-language-server', '--stdio' },
+  filetypes = { 'json', 'jsonc' },
+  root_markers = { '.git' },
+  on_attach = function(client, bufnr)
+    client.settings = vim.tbl_deep_extend('force', client.settings or {}, {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    })
+    client.notify('workspace/didChangeConfiguration', { settings = client.settings })
+  end,
+})
+
 -- Enable all configured language servers
 vim.lsp.enable({
   'solargraph',
@@ -398,6 +413,7 @@ vim.lsp.enable({
   'clangd',
   'gopls',
   'elixirls',
+  'jsonls',
 })
 
 -- LSP Keymaps (set when LSP attaches to a buffer)
