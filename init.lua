@@ -121,6 +121,9 @@ vim.pack.add({
 
   -- Which-key (keybinding hints)
   { src = gh('folke/which-key.nvim'), name = 'which-key' },
+
+  -- JSON schemas
+  { src = gh('b0o/schemastore.nvim'), name = 'schemastore' },
 })
 
 -- =============================================================================
@@ -156,6 +159,14 @@ require('telescope').setup({
       follow = true,  -- follow symlinks
     },
   },
+})
+
+-- Disable autocomplete in Telescope prompt
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'TelescopePrompt',
+  callback = function()
+    vim.opt_local.autocomplete = false
+  end,
 })
 
 local builtin = require('telescope.builtin')
