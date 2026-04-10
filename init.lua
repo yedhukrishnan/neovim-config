@@ -124,6 +124,9 @@ vim.pack.add({
 
   -- JSON schemas
   { src = gh('b0o/schemastore.nvim'), name = 'schemastore' },
+
+  -- Tiny cmdline (enhanced command line UI on the Center)
+  { src = gh('rachartier/tiny-cmdline.nvim'), name = "tiny-cmdline" },
 })
 
 -- =============================================================================
@@ -465,3 +468,6 @@ vim.diagnostic.config({
     source = true,
   },
 })
+
+-- Config for tiny-cmdline
+vim.o.cmdheight = 0
