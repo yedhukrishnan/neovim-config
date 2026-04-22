@@ -108,9 +108,6 @@ vim.pack.add({
   { src = gh('MeanderingProgrammer/render-markdown.nvim'), name = 'render-markdown' },
   { src = gh('zbirenbaum/copilot.lua'), name = 'copilot-lua' },
 
-  -- Habit training
-  { src = gh('m4xshen/hardtime.nvim'), name = 'hardtime' },
-
   -- Claude/OpenCode integration
   { src = gh('coder/claudecode.nvim'), name = 'claudecode' },
   { src = gh('nickjvandyke/opencode.nvim'), name = 'opencode' },
@@ -124,9 +121,6 @@ vim.pack.add({
 
   -- JSON schemas
   { src = gh('b0o/schemastore.nvim'), name = 'schemastore' },
-
-  -- Tiny cmdline (enhanced command line UI on the Center)
-  { src = gh('rachartier/tiny-cmdline.nvim'), name = "tiny-cmdline" },
 })
 
 -- =============================================================================
@@ -197,7 +191,32 @@ if ok then
 end
 
 -- lualine
-require('lualine').setup()
+require('lualine').setup({
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 
+      'location',
+      {
+        function()
+          return vim.fn.reg_recording() ~= '' and 'recording @' .. vim.fn.reg_recording() or ''
+        end,
+        cond = function()
+          return vim.fn.reg_recording() ~= ''
+        end,
+      }
+    }
+  },
+  options = {
+    globalstatus = true,  -- Use global statusline
+  },
+})
+
+-- Ensure statusline is always visible (required when cmdheight = 0)
+vim.opt.laststatus = 3  -- Global statusline across all windows
 
 -- nvim-web-devicons
 require("nvim-web-devicons").setup()
@@ -218,9 +237,17 @@ require("conform").setup({
     python = { "isort", "black" },
     rust = { "rustfmt", lsp_format = "fallback" },
     javascript = { "prettierd", "prettier", stop_after_first = true },
+    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
+    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
     ruby = { "rubocop" },
   },
 })
+
+-- Add direct conform formatting keymap
+vim.keymap.set('n', '<leader>cf', function()
+  require("conform").format({ async = true })
+end, { desc = 'Format with conform' })
 
 -- CopilotChat
 require("CopilotChat").setup({
@@ -236,9 +263,6 @@ require("avante").setup({
 require("render-markdown").setup({
   file_types = { "markdown", "Avante" },
 })
-
--- hardtime
-require("hardtime").setup()
 
 -- which-key
 local wk = require("which-key")
@@ -468,6 +492,3 @@ vim.diagnostic.config({
     source = true,
   },
 })
-
--- Config for tiny-cmdline
-vim.o.cmdheight = 0
