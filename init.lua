@@ -24,6 +24,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.showcmd = true
+-- Note: showcmdloc defaults to 'last' which works with normal cmdheight
 -- Note: 'lazyredraw' is deprecated in 0.12, screen updates are optimized automatically
 vim.opt.ignorecase = true  -- renamed from 'ic' for clarity
 vim.opt.incsearch = true
@@ -127,8 +128,17 @@ vim.pack.add({
 -- Plugin Setup
 -- =============================================================================
 
--- Colorscheme
-vim.cmd.colorscheme 'nightfox'
+-- Colorscheme (persisted across sessions)
+local theme_file = vim.fn.stdpath('data') .. '/last_theme'
+
+-- Load last theme, fall back to kanagawa
+local theme_ok, saved_theme = pcall(vim.fn.readfile, theme_file)
+pcall(vim.cmd.colorscheme, (theme_ok and saved_theme[1]) or 'kanagawa')
+
+-- Re-save whenever the colorscheme changes (covers the Telescope picker too)
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = function(args) pcall(vim.fn.writefile, { args.match }, theme_file) end,
+})
 
 -- Telescope
 require('telescope').setup({
@@ -171,6 +181,9 @@ vim.keymap.set('n', '<leader>p', builtin.find_files, { desc = 'Find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep' })
 vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help tags' })
+vim.keymap.set('n', '<leader>ft', function()
+  builtin.colorscheme({ enable_preview = true })
+end, { desc = 'Themes (preview)' })
 
 -- nvim-tree
 require("nvim-tree").setup()
@@ -198,7 +211,7 @@ require('lualine').setup({
     lualine_c = { 'filename' },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
-    lualine_z = { 
+    lualine_z = {
       'location',
       {
         function()
@@ -211,6 +224,7 @@ require('lualine').setup({
     }
   },
   options = {
+    theme = 'auto',       -- Follow the active colorscheme
     globalstatus = true,  -- Use global statusline
   },
 })
