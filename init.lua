@@ -110,10 +110,8 @@ vim.pack.add({
   { src = gh('github/copilot.vim'), name = 'copilot' },
   { src = gh('CopilotC-Nvim/CopilotChat.nvim'), name = 'CopilotChat' },
 
-  -- Claude/OpenCode integration
+  -- Claude integration
   { src = gh('coder/claudecode.nvim'), name = 'claudecode' },
-  { src = gh('nickjvandyke/opencode.nvim'), name = 'opencode' },
-  { src = gh('folke/snacks.nvim'), name = 'snacks' },
 
   -- Mini icons (dependency for several plugins)
   { src = gh('echasnovski/mini.icons'), name = 'mini.icons' },
@@ -308,7 +306,6 @@ wk.add({
   { "<leader>f", group = "Find/Telescope" },
   { "<leader>n", group = "NvimTree" },
   { "<leader>g", group = "Git" },
-  { "<leader>o", group = "OpenCode" },
   { "<leader>l", group = "LSP" },
   { "<leader>lw", group = "Workspace" },
 })
@@ -325,16 +322,8 @@ vim.keymap.set('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Send to C
 vim.keymap.set('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', { desc = 'Accept diff' })
 vim.keymap.set('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', { desc = 'Deny diff' })
 
--- opencode
-vim.g.opencode_opts = {}
+-- Reload files changed outside Neovim
 vim.o.autoread = true
-vim.keymap.set({ 'n', 'x' }, '<leader>oa', function() require('opencode').ask('@this: ', { submit = true }) end, { desc = 'Ask opencode' })
-vim.keymap.set({ 'n', 'x' }, '<leader>os', function() require('opencode').select() end, { desc = 'Select opencode action' })
-vim.keymap.set({ 'n', 't' }, '<leader>ot', function() require('opencode').toggle() end, { desc = 'Toggle opencode' })
-vim.keymap.set({ 'n', 'x' }, '<leader>oo', function() return require('opencode').operator('@this ') end, { desc = 'Add range to opencode', expr = true })
-vim.keymap.set('n', '<leader>ol', function() return require('opencode').operator('@this ') .. '_' end, { desc = 'Add line to opencode', expr = true })
-vim.keymap.set('n', '<leader>ou', function() require('opencode').command('session.half.page.up') end, { desc = 'Scroll opencode up' })
-vim.keymap.set('n', '<leader>od', function() require('opencode').command('session.half.page.down') end, { desc = 'Scroll opencode down' })
 
 -- =============================================================================
 -- Keymaps
