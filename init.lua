@@ -189,19 +189,22 @@ end, { desc = 'Themes (preview)' })
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { desc = 'Find file in tree' })
 
--- nvim-treesitter
-local ok, ts_configs = pcall(require, 'nvim-treesitter.configs')
-if ok then
-  ts_configs.setup({
-    ensure_installed = {
-      'ruby', 'javascript', 'typescript', 'tsx', 'python',
-      'c', 'cpp', 'go', 'elixir', 'lua', 'vim', 'vimdoc',
-      'html', 'css', 'json', 'yaml', 'markdown', 'bash',
-    },
-    highlight = { enable = true },
-    indent = { enable = true },
-  })
-end
+-- nvim-treesitter (main branch API)
+require('nvim-treesitter').install({
+  'ruby', 'javascript', 'typescript', 'tsx', 'python',
+  'c', 'cpp', 'go', 'elixir', 'lua', 'vim', 'vimdoc',
+  'html', 'css', 'json', 'yaml', 'markdown', 'markdown_inline', 'bash',
+})
+
+-- On the main branch, highlighting & indent are opt-in per buffer
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+    if lang and pcall(vim.treesitter.start, args.buf, lang) then
+      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
+})
 
 -- lualine
 require('lualine').setup({
