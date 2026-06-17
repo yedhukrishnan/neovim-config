@@ -110,14 +110,6 @@ vim.pack.add({
   { src = gh('github/copilot.vim'), name = 'copilot' },
   { src = gh('CopilotC-Nvim/CopilotChat.nvim'), name = 'CopilotChat' },
 
-  -- Avante AI
-  { src = gh('yetone/avante.nvim'), name = 'avante' },
-  { src = gh('stevearc/dressing.nvim'), name = 'dressing' },
-  { src = gh('MunifTanjim/nui.nvim'), name = 'nui' },
-  { src = gh('HakonHarnes/img-clip.nvim'), name = 'img-clip' },
-  { src = gh('MeanderingProgrammer/render-markdown.nvim'), name = 'render-markdown' },
-  { src = gh('zbirenbaum/copilot.lua'), name = 'copilot-lua' },
-
   -- Claude/OpenCode integration
   { src = gh('coder/claudecode.nvim'), name = 'claudecode' },
   { src = gh('nickjvandyke/opencode.nvim'), name = 'opencode' },
@@ -302,16 +294,6 @@ end, { desc = 'Format with conform' })
 -- CopilotChat
 require("CopilotChat").setup({
   debug = true,
-})
-
--- Avante
-require("avante").setup({
-  hints = { enabled = false },
-})
-
--- render-markdown (for Avante)
-require("render-markdown").setup({
-  file_types = { "markdown", "Avante" },
 })
 
 -- which-key
