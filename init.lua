@@ -36,6 +36,14 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"  -- Use treesitter for folding (0.12 default)
 vim.opt.foldlevel = 99
 
+-- Quality-of-life
+vim.opt.undofile = true                               -- Persistent undo across restarts (pairs with undotree)
+vim.opt.signcolumn = 'yes'                            -- Always show sign column so the gutter doesn't jump
+vim.opt.scrolloff = 8                                 -- Keep context lines around the cursor
+vim.opt.splitright = true                             -- Vertical splits open to the right
+vim.opt.splitbelow = true                             -- Horizontal splits open below
+vim.opt.clipboard = 'unnamedplus'                     -- Use the system clipboard for yank/paste
+
 -- Neovim 0.12 features
 vim.opt.pumborder = 'single'                          -- Border around completion popup (single/double/rounded/shadow)
 vim.opt.autocomplete = true                           -- Built-in autocompletion
