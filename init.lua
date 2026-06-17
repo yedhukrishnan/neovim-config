@@ -190,16 +190,20 @@ vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { desc = 'Find file i
 
 -- nvim-treesitter (main branch API)
 require('nvim-treesitter').install({
-  'ruby', 'javascript', 'typescript', 'tsx', 'python',
+  'ruby', 'embedded_template', 'javascript', 'typescript', 'tsx', 'python',
   'c', 'cpp', 'go', 'elixir', 'lua', 'vim', 'vimdoc',
   'html', 'css', 'json', 'yaml', 'markdown', 'markdown_inline', 'bash',
 })
 
--- On the main branch, highlighting & indent are opt-in per buffer
+-- On the main branch, highlighting & indent are opt-in per buffer.
+-- Only start treesitter when the parser is actually available; otherwise
+-- leave the built-in regex syntax on as a fallback (e.g. while parsers are
+-- still downloading on first launch) so files are never left unhighlighted.
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
     local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
-    if lang and pcall(vim.treesitter.start, args.buf, lang) then
+    if lang and vim.treesitter.language.add(lang) then
+      vim.treesitter.start(args.buf, lang)
       vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end
   end,
