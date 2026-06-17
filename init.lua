@@ -82,6 +82,7 @@ vim.pack.add({
   -- Git integration
   { src = gh('tpope/vim-fugitive'), name = 'vim-fugitive' },
   { src = gh('tpope/vim-rhubarb'), name = 'vim-rhubarb' },
+  { src = gh('lewis6991/gitsigns.nvim'), name = 'gitsigns' },
 
   -- Editing enhancements
   { src = gh('windwp/nvim-autopairs'), name = 'nvim-autopairs' },
@@ -254,6 +255,30 @@ require('mini.indentscope').setup()
 
 -- nvim-autopairs
 require('nvim-autopairs').setup()
+
+-- gitsigns (inline git signs, hunk staging, blame)
+require('gitsigns').setup({
+  on_attach = function(bufnr)
+    local gs = require('gitsigns')
+    local function map(mode, l, r, desc)
+      vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+    end
+
+    -- Navigation between hunks
+    map('n', ']c', function() gs.nav_hunk('next') end, 'Next git hunk')
+    map('n', '[c', function() gs.nav_hunk('prev') end, 'Previous git hunk')
+
+    -- Actions
+    map('n', '<leader>gs', gs.stage_hunk, 'Stage hunk')
+    map('n', '<leader>gr', gs.reset_hunk, 'Reset hunk')
+    map('v', '<leader>gs', function() gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end, 'Stage hunk')
+    map('v', '<leader>gr', function() gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end, 'Reset hunk')
+    map('n', '<leader>gS', gs.stage_buffer, 'Stage buffer')
+    map('n', '<leader>gp', gs.preview_hunk, 'Preview hunk')
+    map('n', '<leader>gb', function() gs.blame_line({ full = true }) end, 'Blame line')
+    map('n', '<leader>gd', gs.diffthis, 'Diff against index')
+  end,
+})
 
 -- conform (formatting)
 require("conform").setup({
