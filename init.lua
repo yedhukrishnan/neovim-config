@@ -424,7 +424,7 @@ vim.g.ackprg = "ag --vimgrep --nocolor --nogroup --hidden --ignore-dir=node_modu
 
 -- Configure each language server
 vim.lsp.config('solargraph', {
-  cmd = { vim.fn.expand('~/.rvm/wrappers/default/solargraph'), 'stdio' },
+  cmd = { 'solargraph', 'stdio' },  -- from PATH, so it follows the active RVM Ruby
   filetypes = { 'ruby' },
   root_markers = { 'Gemfile', '.git' },
   settings = {
