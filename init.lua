@@ -92,6 +92,9 @@ vim.pack.add({
 
   -- Treesitter (syntax highlighting, folding, text objects)
   { src = gh('nvim-treesitter/nvim-treesitter'), name = 'nvim-treesitter' },
+  { src = gh('nvim-treesitter/nvim-treesitter-textobjects'), name = 'nvim-treesitter-textobjects', version = 'main' },
+  { src = gh('nvim-treesitter/nvim-treesitter-context'), name = 'nvim-treesitter-context' },
+  { src = gh('windwp/nvim-ts-autotag'), name = 'nvim-ts-autotag' },
 
   -- Formatting
   { src = gh('stevearc/conform.nvim'), name = 'conform' },
@@ -211,6 +214,41 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
+-- nvim-treesitter-textobjects (main branch: keymaps are set by hand)
+require('nvim-treesitter-textobjects').setup({
+  select = { lookahead = true },  -- jump forward to the next match if not inside one
+  move = { set_jumps = true },    -- record moves in the jumplist (<C-o> to go back)
+})
+
+local ts_select = require('nvim-treesitter-textobjects.select')
+for keys, query in pairs({
+  af = '@function.outer', ['if'] = '@function.inner',
+  ac = '@class.outer',    ic = '@class.inner',
+  aa = '@parameter.outer', ia = '@parameter.inner',
+  ab = '@block.outer',    ib = '@block.inner',
+}) do
+  vim.keymap.set({ 'x', 'o' }, keys, function()
+    ts_select.select_textobject(query, 'textobjects')
+  end, { desc = 'TS ' .. query })
+end
+
+local ts_move = require('nvim-treesitter-textobjects.move')
+vim.keymap.set({ 'n', 'x', 'o' }, ']f', function() ts_move.goto_next_start('@function.outer', 'textobjects') end, { desc = 'Next function' })
+vim.keymap.set({ 'n', 'x', 'o' }, '[f', function() ts_move.goto_previous_start('@function.outer', 'textobjects') end, { desc = 'Previous function' })
+vim.keymap.set({ 'n', 'x', 'o' }, ']k', function() ts_move.goto_next_start('@class.outer', 'textobjects') end, { desc = 'Next class' })
+vim.keymap.set({ 'n', 'x', 'o' }, '[k', function() ts_move.goto_previous_start('@class.outer', 'textobjects') end, { desc = 'Previous class' })
+
+local ts_swap = require('nvim-treesitter-textobjects.swap')
+vim.keymap.set('n', '<leader>sn', function() ts_swap.swap_next('@parameter.inner') end, { desc = 'Swap with next argument' })
+vim.keymap.set('n', '<leader>sp', function() ts_swap.swap_previous('@parameter.inner') end, { desc = 'Swap with previous argument' })
+
+-- nvim-treesitter-context (pin the current function/class header at the top)
+require('treesitter-context').setup({ max_lines = 3 })
+vim.keymap.set('n', '[x', function() require('treesitter-context').go_to_context(vim.v.count1) end, { desc = 'Jump to context' })
+
+-- nvim-ts-autotag (auto close/rename HTML, ERB, JSX tags)
+require('nvim-ts-autotag').setup()
 
 -- lualine
 require('lualine').setup({
