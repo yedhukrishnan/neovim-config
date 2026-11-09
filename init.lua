@@ -126,9 +126,6 @@ vim.pack.add({
   { src = gh('github/copilot.vim'), name = 'copilot' },
   { src = gh('CopilotC-Nvim/CopilotChat.nvim'), name = 'CopilotChat' },
 
-  -- Claude integration
-  { src = gh('coder/claudecode.nvim'), name = 'claudecode' },
-
   -- Mini icons (dependency for several plugins)
   { src = gh('echasnovski/mini.icons'), name = 'mini.icons' },
 
@@ -412,25 +409,12 @@ wk.setup({
 
 -- Register key groups
 wk.add({
-  { "<leader>a", group = "AI/Claude" },
   { "<leader>f", group = "Find" },
   { "<leader>n", group = "NvimTree / Noice" },
   { "<leader>g", group = "Git" },
   { "<leader>l", group = "LSP" },
   { "<leader>lw", group = "Workspace" },
 })
-
--- claudecode
-require("claudecode").setup()
-vim.keymap.set('n', '<leader>ac', '<cmd>ClaudeCode<cr>', { desc = 'Toggle Claude' })
-vim.keymap.set('n', '<leader>af', '<cmd>ClaudeCodeFocus<cr>', { desc = 'Focus Claude' })
-vim.keymap.set('n', '<leader>ar', '<cmd>ClaudeCode --resume<cr>', { desc = 'Resume Claude' })
-vim.keymap.set('n', '<leader>aC', '<cmd>ClaudeCode --continue<cr>', { desc = 'Continue Claude' })
-vim.keymap.set('n', '<leader>am', '<cmd>ClaudeCodeSelectModel<cr>', { desc = 'Select Claude model' })
-vim.keymap.set('n', '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', { desc = 'Add current buffer' })
-vim.keymap.set('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Send to Claude' })
-vim.keymap.set('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', { desc = 'Accept diff' })
-vim.keymap.set('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', { desc = 'Deny diff' })
 
 -- Reload files changed outside Neovim
 vim.o.autoread = true

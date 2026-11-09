@@ -16,10 +16,6 @@
       "rev": "426dbebe06b5c69fd846ceb17b42e12f890aedf1",
       "src": "https://github.com/catppuccin/nvim"
     },
-    "claudecode": {
-      "rev": "432121f0f5b9bda041030d1e9e83b7ba3a93dd8f",
-      "src": "https://github.com/coder/claudecode.nvim"
-    },
     "conform": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"

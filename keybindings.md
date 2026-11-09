@@ -114,20 +114,6 @@ Use `:NvimTreeToggle` to open/close the tree.
 | `<leader>sp` | Normal | Swap argument with previous |
 | `[x` | Normal | Jump up to context (enclosing function/class) |
 
-### Claude Code (claudecode.nvim)
-
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>ac` | Normal | Toggle Claude |
-| `<leader>af` | Normal | Focus Claude |
-| `<leader>ar` | Normal | Resume Claude |
-| `<leader>aC` | Normal | Continue Claude |
-| `<leader>am` | Normal | Select Claude model |
-| `<leader>ab` | Normal | Add current buffer |
-| `<leader>as` | Visual | Send selection to Claude |
-| `<leader>aa` | Normal | Accept diff |
-| `<leader>ad` | Normal | Deny diff |
-
 ---
 
 ## Plugin defaults
