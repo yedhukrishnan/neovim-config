@@ -381,8 +381,8 @@ vim.keymap.set('n', '<C-H>', '<C-W><C-H>', { desc = 'Move to window left' })
 vim.keymap.set('n', '<C-S>', ':nohlsearch<CR>', { noremap = true, silent = true, desc = 'Clear search highlights' })
 
 -- Buffer navigation
-vim.keymap.set('n', ']b', ':bprevious<CR>', { noremap = true, silent = true, desc = 'Previous buffer' })
-vim.keymap.set('n', '[b', ':bnext<CR>', { noremap = true, silent = true, desc = 'Next buffer' })
+vim.keymap.set('n', '[b', ':bprevious<CR>', { noremap = true, silent = true, desc = 'Previous buffer' })
+vim.keymap.set('n', ']b', ':bnext<CR>', { noremap = true, silent = true, desc = 'Next buffer' })
 
 -- Toggle relative line numbers
 vim.keymap.set('n', '<leader>r', ':set rnu!<CR>', { noremap = true, silent = true, desc = 'Toggle relative numbers' })
@@ -508,7 +508,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, vim.tbl_extend('force', opts, { desc = 'Go to definition' }))
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, vim.tbl_extend('force', opts, { desc = 'Go to declaration' }))
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, vim.tbl_extend('force', opts, { desc = 'Go to implementation' }))
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, vim.tbl_extend('force', opts, { desc = 'Find references' }))
     vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, vim.tbl_extend('force', opts, { desc = 'Go to type definition' }))
 
     -- Hover and signature

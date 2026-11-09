@@ -38,8 +38,8 @@ sudo pacman -S ripgrep fd
 
 | Tool | Purpose |
 |------|---------|
-| [ripgrep](https://github.com/BurntSushi/ripgrep) | Fast grep for Telescope live_grep |
-| [fd](https://github.com/sharkdp/fd) | Fast find for Telescope find_files |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) | Live grep in the snacks picker |
+| [fd](https://github.com/sharkdp/fd) | File finding in the snacks picker |
 
 ### Language Servers
 
@@ -132,9 +132,6 @@ gem install rubocop
 ### Other Tools (Optional)
 
 ```bash
-# Silver Searcher (for ack.vim)
-brew install the_silver_searcher
-
 # LaTeX (for vimtex)
 brew install --cask mactex
 ```
@@ -165,71 +162,7 @@ Plugin versions are tracked in `nvim-pack-lock.json`. Commit this file to ensure
 
 ## Key Bindings
 
-Leader key: `Space`
-
-### General
-
-| Keymap | Action |
-|--------|--------|
-| `jk` | Exit insert mode |
-| `<C-h/j/k/l>` | Window navigation |
-| `<C-s>` | Clear search highlights |
-| `[b` / `]b` | Next/Previous buffer |
-| `<leader>r` | Toggle relative line numbers |
-
-### Telescope (Find)
-
-| Keymap | Action |
-|--------|--------|
-| `<leader>p` | Find files |
-| `<leader>fg` | Live grep |
-| `<leader>b` | Buffers |
-| `<leader>fh` | Help tags |
-
-### File Tree (nvim-tree)
-
-| Keymap | Action |
-|--------|--------|
-| `<leader>nf` | Find current file in tree |
-
-### LSP
-
-| Keymap | Action |
-|--------|--------|
-| `gd` | Go to definition |
-| `gD` | Go to declaration |
-| `gi` | Go to implementation |
-| `gr` | Find references |
-| `gy` | Go to type definition |
-| `K` | Hover documentation |
-| `<C-k>` (insert) | Signature help |
-| `<leader>lr` | Rename symbol |
-| `<leader>la` | Code action |
-| `<leader>lf` | Format buffer |
-| `<leader>ld` | Line diagnostics |
-| `[d` / `]d` | Previous/Next diagnostic |
-
-### AI Assistants
-
-#### Claude Code
-
-| Keymap | Action |
-|--------|--------|
-| `<leader>ac` | Toggle Claude |
-| `<leader>af` | Focus Claude |
-| `<leader>ar` | Resume Claude |
-| `<leader>aa` | Accept diff |
-| `<leader>ad` | Deny diff |
-
-#### OpenCode
-
-| Keymap | Action |
-|--------|--------|
-| `<leader>oa` | Ask OpenCode |
-| `<leader>os` | Select action |
-| `<leader>ot` | Toggle OpenCode |
-| `<leader>oo` | Add range |
-| `<leader>ol` | Add line |
+Leader key: `Space`. See **[keybindings.md](keybindings.md)** for the full list: custom keymaps, plugin defaults and useful Neovim built-ins.
 
 ## Troubleshooting
 
@@ -244,7 +177,7 @@ For specific checks:
 ```vim
 :checkhealth vim.lsp
 :checkhealth nvim-tree
-:checkhealth telescope
+:checkhealth snacks
 ```
 
 ### LSP Not Working
@@ -278,7 +211,7 @@ For specific checks:
    " Restart Neovim to reinstall
    ```
 
-### Telescope Slow
+### Picker Slow
 
 Ensure `ripgrep` and `fd` are installed:
 
@@ -291,6 +224,7 @@ which rg fd
 ```
 ~/.config/nvim/
 ├── init.lua              # Main configuration
+├── keybindings.md        # All keybindings
 ├── nvim-pack-lock.json   # Plugin lockfile (auto-generated)
 ├── colors/               # Custom colorschemes
 └── plugin/               # Custom plugin scripts
