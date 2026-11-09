@@ -225,7 +225,5 @@ which rg fd
 ~/.config/nvim/
 ├── init.lua              # Main configuration
 ├── keybindings.md        # All keybindings
-├── nvim-pack-lock.json   # Plugin lockfile (auto-generated)
-├── colors/               # Custom colorschemes
-└── plugin/               # Custom plugin scripts
+└── nvim-pack-lock.json   # Plugin lockfile (auto-generated)
 ```
