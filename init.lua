@@ -293,26 +293,52 @@ require('nvim-ts-autotag').setup()
 require('lualine').setup({
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename' },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_b = {
+      'branch',
+      {
+        'diff',
+        -- Reuse gitsigns' counts so they match the gutter signs
+        source = function()
+          local g = vim.b.gitsigns_status_dict
+          if g then
+            return { added = g.added, modified = g.changed, removed = g.removed }
+          end
+        end,
+      },
+      'diagnostics',
+    },
+    lualine_c = {
+      {
+        'filename',
+        path = 1,  -- path relative to the project root
+        symbols = { modified = '[+]', readonly = '[RO]', unnamed = '[No Name]', newfile = '[New]' },
+      },
+    },
+    lualine_x = {
+      { 'lsp_status', ignore_lsp = { 'GitHub Copilot' } },
+      -- Only show encoding / line endings when they're unusual
+      { 'encoding', cond = function() return vim.bo.fileencoding ~= '' and vim.bo.fileencoding ~= 'utf-8' end },
+      { 'fileformat', cond = function() return vim.bo.fileformat ~= 'unix' end },
+      'filetype',
+    },
     lualine_y = { 'progress' },
     lualine_z = {
       'location',
       {
         function()
-          return vim.fn.reg_recording() ~= '' and 'recording @' .. vim.fn.reg_recording() or ''
+          return 'recording @' .. vim.fn.reg_recording()
         end,
         cond = function()
           return vim.fn.reg_recording() ~= ''
         end,
-      }
-    }
+      },
+    },
   },
   options = {
     theme = 'auto',       -- Follow the active colorscheme
     globalstatus = true,  -- Use global statusline
   },
+  extensions = { 'nvim-tree', 'fugitive', 'quickfix' },
 })
 
 -- Ensure statusline is always visible (required when cmdheight = 0)
