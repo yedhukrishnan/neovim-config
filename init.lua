@@ -67,6 +67,23 @@ vim.pack.add({
   { src = gh('olimorris/onedarkpro.nvim'), name = 'onedarkpro' },
   { src = gh('EdenEast/nightfox.nvim'), name = 'nightfox' },
 
+  -- Omarchy themes (catppuccin, gruvbox, kanagawa and nightfox/nordfox are above)
+  { src = gh('folke/tokyonight.nvim'), name = 'tokyonight' },
+  { src = gh('bjarneo/ethereal.nvim'), name = 'ethereal' },
+  { src = gh('neanias/everforest-nvim'), name = 'everforest' },
+  { src = gh('kepano/flexoki-neovim'), name = 'flexoki' },
+  { src = gh('bjarneo/aether.nvim'), name = 'aether' },  -- needed by hackerman
+  { src = gh('bjarneo/hackerman.nvim'), name = 'hackerman' },
+  { src = gh('omacom-io/lumon.nvim'), name = 'lumon' },
+  { src = gh('tahayvr/matteblack.nvim'), name = 'matteblack' },
+  { src = gh('OldJobobo/miasma.nvim'), name = 'miasma' },
+  { src = gh('ribru17/bamboo.nvim'), name = 'bamboo' },  -- osaka-jade
+  { src = gh('OldJobobo/retro-82.nvim'), name = 'retro-82' },
+  { src = gh('loctvl842/monokai-pro.nvim'), name = 'monokai-pro' },  -- ristretto
+  { src = gh('rose-pine/neovim'), name = 'rose-pine' },
+  { src = gh('bjarneo/vantablack.nvim'), name = 'vantablack' },
+  { src = gh('bjarneo/white.nvim'), name = 'white' },
+
   -- Snacks (picker: files, grep, buffers, themes, ...)
   { src = gh('folke/snacks.nvim'), name = 'snacks' },
   { src = gh('nvim-lua/plenary.nvim'), name = 'plenary' },  -- needed by CopilotChat
@@ -131,6 +148,28 @@ vim.pack.add({
 
 -- Colorscheme (persisted across sessions)
 local theme_file = vim.fn.stdpath('data') .. '/last_theme'
+
+-- Theme settings that match Omarchy
+pcall(function() require('everforest').setup({ background = 'soft' }) end)
+pcall(function()
+  require('monokai-pro').setup({
+    filter = 'ristretto',
+    override = function()
+      return {
+        NonText = { fg = '#948a8b' },
+        MiniIconsGrey = { fg = '#948a8b' },
+        MiniIconsRed = { fg = '#fd6883' },
+        MiniIconsBlue = { fg = '#85dacc' },
+        MiniIconsGreen = { fg = '#adda78' },
+        MiniIconsYellow = { fg = '#f9cc6c' },
+        MiniIconsOrange = { fg = '#f38d70' },
+        MiniIconsPurple = { fg = '#a8a9eb' },
+        MiniIconsAzure = { fg = '#a8a9eb' },
+        MiniIconsCyan = { fg = '#85dacc' },
+      }
+    end,
+  })
+end)
 
 -- Load last theme, fall back to kanagawa
 local theme_ok, saved_theme = pcall(vim.fn.readfile, theme_file)
