@@ -4,10 +4,6 @@
       "rev": "0b3133ffbb470b1616c47170b544d0b9a3bbcf5b",
       "src": "https://github.com/CopilotC-Nvim/CopilotChat.nvim"
     },
-    "ack": {
-      "rev": "36e40f9ec91bdbf6f1adf408522a73a6925c3042",
-      "src": "https://github.com/mileszs/ack.vim"
-    },
     "avante": {
       "rev": "8c84af0f09e5d9058362ac58401a8e7b047d826e",
       "src": "https://github.com/yetone/avante.nvim"
@@ -35,6 +31,10 @@
     "dressing": {
       "rev": "2d7c2db2507fa3c4956142ee607431ddb2828639",
       "src": "https://github.com/stevearc/dressing.nvim"
+    },
+    "gitsigns": {
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruvbox": {
       "rev": "334d5fd49fc8033f26408425366c66c6390c57bb",
@@ -129,10 +129,6 @@
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
     },
-    "telescope": {
-      "rev": "3ab376cfae65b921dda454df5967f8df673effc6",
-      "src": "https://github.com/nvim-telescope/telescope.nvim"
-    },
     "tiny-cmdline": {
       "rev": "ad58747b955d0743ccfd56e97da1a4c1fac89f58",
       "src": "https://github.com/rachartier/tiny-cmdline.nvim"
@@ -152,6 +148,10 @@
     "vim-rhubarb": {
       "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
       "src": "https://github.com/tpope/vim-rhubarb"
+    },
+    "vim-wakatime": {
+      "rev": "9f8a1d3b9c6f3a948988a0896b3227c1e1f74a58",
+      "src": "https://github.com/wakatime/vim-wakatime"
     },
     "vimtex": {
       "rev": "9306903316c3ddd250676b7cf97c84a84c9c8f99",

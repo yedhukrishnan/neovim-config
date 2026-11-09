@@ -67,9 +67,9 @@ vim.pack.add({
   { src = gh('olimorris/onedarkpro.nvim'), name = 'onedarkpro' },
   { src = gh('EdenEast/nightfox.nvim'), name = 'nightfox' },
 
-  -- Telescope (fuzzy finder)
-  { src = gh('nvim-telescope/telescope.nvim'), name = 'telescope' },
-  { src = gh('nvim-lua/plenary.nvim'), name = 'plenary' },
+  -- Snacks (picker: files, grep, buffers, themes, ...)
+  { src = gh('folke/snacks.nvim'), name = 'snacks' },
+  { src = gh('nvim-lua/plenary.nvim'), name = 'plenary' },  -- needed by CopilotChat
 
   -- File tree
   { src = gh('nvim-tree/nvim-tree.lua'), name = 'nvim-tree' },
@@ -105,9 +105,6 @@ vim.pack.add({
   -- LaTeX
   { src = gh('lervag/vimtex'), name = 'vimtex' },
 
-  -- Search
-  { src = gh('mileszs/ack.vim'), name = 'ack' },
-
   -- AI assistants
   { src = gh('github/copilot.vim'), name = 'copilot' },
   { src = gh('CopilotC-Nvim/CopilotChat.nvim'), name = 'CopilotChat' },
@@ -123,6 +120,9 @@ vim.pack.add({
 
   -- JSON schemas
   { src = gh('b0o/schemastore.nvim'), name = 'schemastore' },
+
+  -- Wakatime (time tracking)
+  { src = gh('wakatime/vim-wakatime'), name = 'vim-wakatime' },
 })
 
 -- =============================================================================
@@ -136,55 +136,55 @@ local theme_file = vim.fn.stdpath('data') .. '/last_theme'
 local theme_ok, saved_theme = pcall(vim.fn.readfile, theme_file)
 pcall(vim.cmd.colorscheme, (theme_ok and saved_theme[1]) or 'kanagawa')
 
--- Re-save whenever the colorscheme changes (covers the Telescope picker too)
+-- Re-save whenever the colorscheme changes (covers the theme picker too)
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function(args) pcall(vim.fn.writefile, { args.match }, theme_file) end,
 })
 
--- Telescope
-require('telescope').setup({
-  defaults = {
-    file_ignore_patterns = {
-      "node_modules/",
-      ".git/",
-      ".next/",
-      "coverage/",
-      "%.lock",
-      "dist/",
-      "build/",
-    },
-    preview = { treesitter = true },
-    -- Performance settings
-    path_display = { "truncate" },
-    sorting_strategy = "ascending",
-    layout_config = {
-      horizontal = { prompt_position = "top" },
-    },
-  },
-  pickers = {
-    find_files = {
-      hidden = true,  -- show hidden files
-      follow = true,  -- follow symlinks
+-- Snacks picker (only the picker is enabled; other snacks modules stay off)
+local picker_exclude = { "node_modules", ".git", ".next", "coverage", "*.lock", "dist", "build" }
+require('snacks').setup({
+  picker = {
+    enabled = true,
+    sources = {
+      files = { hidden = true, follow = true, exclude = picker_exclude },
+      grep = { hidden = true, exclude = picker_exclude },
+      grep_word = { hidden = true, exclude = picker_exclude },
     },
   },
 })
 
--- Disable autocomplete in Telescope prompt
+-- Disable autocomplete in the picker prompt
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'TelescopePrompt',
+  pattern = 'snacks_picker_input',
   callback = function()
     vim.opt_local.autocomplete = false
   end,
 })
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>p', builtin.find_files, { desc = 'Find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep' })
-vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help tags' })
-vim.keymap.set('n', '<leader>ft', function()
-  builtin.colorscheme({ enable_preview = true })
-end, { desc = 'Themes (preview)' })
+local picker = function(name, opts)
+  return function() Snacks.picker[name](opts) end
+end
+-- Same keys as before
+vim.keymap.set('n', '<leader>p', picker('files'), { desc = 'Find files' })
+vim.keymap.set('n', '<leader>fg', picker('grep'), { desc = 'Live grep' })
+vim.keymap.set('n', '<leader>b', picker('buffers'), { desc = 'Buffers' })
+vim.keymap.set('n', '<leader>fh', picker('help'), { desc = 'Help tags' })
+vim.keymap.set('n', '<leader>ft', picker('colorschemes'), { desc = 'Themes (preview)' })
+-- New
+vim.keymap.set('n', '<leader><space>', picker('smart'), { desc = 'Smart find (recent + files)' })
+vim.keymap.set('n', '<leader>fr', picker('recent'), { desc = 'Recent files' })
+vim.keymap.set({ 'n', 'x' }, '<leader>fw', picker('grep_word'), { desc = 'Grep word / selection' })
+vim.keymap.set('n', '<leader>f/', picker('lines'), { desc = 'Search current buffer' })
+vim.keymap.set('n', '<leader>fd', picker('diagnostics'), { desc = 'Diagnostics' })
+vim.keymap.set('n', '<leader>fs', picker('lsp_symbols'), { desc = 'LSP symbols (file)' })
+vim.keymap.set('n', '<leader>fS', picker('lsp_workspace_symbols'), { desc = 'LSP symbols (workspace)' })
+vim.keymap.set('n', '<leader>fk', picker('keymaps'), { desc = 'Keymaps' })
+vim.keymap.set('n', '<leader>fc', picker('command_history'), { desc = 'Command history' })
+vim.keymap.set('n', '<leader>fu', picker('undo'), { desc = 'Undo history' })
+vim.keymap.set('n', '<leader>fl', picker('git_log'), { desc = 'Git log' })
+vim.keymap.set('n', '<leader>fq', picker('qflist'), { desc = 'Quickfix list' })
+vim.keymap.set('n', '<leader>f.', picker('resume'), { desc = 'Resume last picker' })
 
 -- nvim-tree
 require("nvim-tree").setup()
@@ -344,7 +344,7 @@ wk.setup({
 -- Register key groups
 wk.add({
   { "<leader>a", group = "AI/Claude" },
-  { "<leader>f", group = "Find/Telescope" },
+  { "<leader>f", group = "Find" },
   { "<leader>n", group = "NvimTree" },
   { "<leader>g", group = "Git" },
   { "<leader>l", group = "LSP" },
@@ -399,13 +399,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
   command = [[%s/\s\+$//e]],
 })
-
--- =============================================================================
--- Other Settings
--- =============================================================================
-
--- Ack config (using silver searcher)
-vim.g.ackprg = "ag --vimgrep --nocolor --nogroup --hidden --ignore-dir=node_modules --ignore-dir=.next --ignore-dir=.git --ignore-dir=coverage"
 
 -- =============================================================================
 -- LSP Configuration (Neovim 0.12 built-in)
