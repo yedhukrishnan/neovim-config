@@ -482,7 +482,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- Configure each language server
 vim.lsp.config('solargraph', {
-  cmd = { 'solargraph', 'stdio' },  -- from PATH, so it follows the active RVM Ruby
+  cmd = { 'solargraph', 'stdio' },  -- from PATH, so it follows the active mise Ruby
   filetypes = { 'ruby' },
   root_markers = { 'Gemfile', '.git' },
   settings = {

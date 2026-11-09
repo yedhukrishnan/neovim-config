@@ -51,7 +51,7 @@ Install the language servers for languages you use:
 gem install solargraph
 ```
 
-If using RVM, the config expects solargraph at `~/.rvm/wrappers/default/solargraph`.
+Install it into the Ruby you use (e.g. with mise). Neovim runs `solargraph` from your `PATH`, so it follows the active Ruby version. Each Ruby version needs its own `gem install solargraph`.
 
 #### JavaScript / TypeScript
 
