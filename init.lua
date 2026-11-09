@@ -9,9 +9,9 @@ vim.g.mapleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Enable ui2 (new experimental UI in Neovim 0.12)
--- Avoids "Press ENTER" interruptions, highlights cmdline as you type
-require('vim._core.ui2').enable({})
+-- ui2 (new experimental UI in Neovim 0.12) is off because noice.nvim
+-- handles the cmdline and messages. Re-enable it if you remove noice.
+-- require('vim._core.ui2').enable({})
 
 -- =============================================================================
 -- Options
@@ -137,6 +137,10 @@ vim.pack.add({
 
   -- JSON schemas
   { src = gh('b0o/schemastore.nvim'), name = 'schemastore' },
+
+  -- Noice (floating cmdline, messages and notifications; requires nui)
+  { src = gh('MunifTanjim/nui.nvim'), name = 'nui' },
+  { src = gh('folke/noice.nvim'), name = 'noice' },
 
   -- Wakatime (time tracking)
   { src = gh('wakatime/vim-wakatime'), name = 'vim-wakatime' },
@@ -384,7 +388,7 @@ wk.setup({
 wk.add({
   { "<leader>a", group = "AI/Claude" },
   { "<leader>f", group = "Find" },
-  { "<leader>n", group = "NvimTree" },
+  { "<leader>n", group = "NvimTree / Noice" },
   { "<leader>g", group = "Git" },
   { "<leader>l", group = "LSP" },
   { "<leader>lw", group = "Workspace" },
@@ -585,3 +589,22 @@ vim.diagnostic.config({
     source = true,
   },
 })
+
+-- Noice
+require('noice').setup({
+  lsp = {
+    -- Render LSP hover/signature docs with Treesitter markdown
+    override = {
+      ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+      ['vim.lsp.util.stylize_markdown'] = true,
+    },
+  },
+  presets = {
+    bottom_search = true,         -- classic bottom cmdline for / and ?
+    command_palette = true,       -- cmdline and completion popup together
+    long_message_to_split = true, -- long messages open in a split
+    lsp_doc_border = true,        -- border around hover docs and signature help
+  },
+})
+vim.keymap.set('n', '<leader>nh', '<cmd>Noice history<cr>', { desc = 'Message history' })
+vim.keymap.set('n', '<leader>nd', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss notifications' })

@@ -54,6 +54,13 @@ Press `<leader>` and wait to see these in which-key, or use `<leader>fk` to sear
 
 Use `:NvimTreeToggle` to open/close the tree.
 
+### Messages (noice)
+
+| Key | Mode | Action |
+|-----|------|--------|
+| `<leader>nh` | Normal | Message history |
+| `<leader>nd` | Normal | Dismiss notifications |
+
 ### LSP (active when a language server attaches)
 
 | Key | Mode | Action |
