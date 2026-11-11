@@ -24,7 +24,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.showcmd = true
--- Note: showcmdloc defaults to 'last' which works with normal cmdheight
+vim.opt.showcmdloc = 'statusline'  -- show pending keys (e.g. "+y) in lualine; noice hides the cmdline area
 -- Note: 'lazyredraw' is deprecated in 0.12, screen updates are optimized automatically
 vim.opt.ignorecase = true  -- renamed from 'ic' for clarity
 vim.opt.incsearch = true
@@ -312,6 +312,8 @@ require('lualine').setup({
       },
     },
     lualine_x = {
+      -- Pending keys like "+yy (noice hides the cmdline area, so showcmd lives here)
+      { '%S', separator = '' },  -- needs showcmdloc = 'statusline'
       { 'lsp_status', ignore_lsp = { 'GitHub Copilot' } },
       -- Only show encoding / line endings when they're unusual
       { 'encoding', cond = function() return vim.bo.fileencoding ~= '' and vim.bo.fileencoding ~= 'utf-8' end },
